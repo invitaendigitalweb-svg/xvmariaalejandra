@@ -10,7 +10,7 @@
     <meta property="og:title" content="Invitación Especial">
     <meta property="og:description" content="¡Te invitamos a compartir este gran día con nosotros! Haz clic para ver los detalles.">
     <meta property="og:image" content="portada.jpg">
-    <meta property="og:type" content="https://invitaendigitalweb-svg.github.io/xvmariaalejandra/">
+    <meta property="og:type" content="website">
 
     <!-- Importar fuentes Cinzel, Great Vibes y Montserrat desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -560,12 +560,12 @@
 
                             <label class="titulo">¿Asistirás?</label>
                             <div class="opciones-asistencia">
-                                <label class="opcion-item">
-                                    <input type="radio" name="asistencia" value="SÍ, ASISTIRÉ" checked>
+                                <label class="opcion-item" for="asiste_si">
+                                    <input type="radio" id="asiste_si" name="asistencia" value="SÍ, ASISTIRÉ" checked>
                                     SÍ, ASISTIRÉ
                                 </label>
-                                <label class="opcion-item">
-                                    <input type="radio" name="asistencia" value="NO PODRÉ ASISTIR">
+                                <label class="opcion-item" for="asiste_no">
+                                    <input type="radio" id="asiste_no" name="asistencia" value="NO PODRÉ ASISTIR">
                                     NO PODRÉ ASISTIR
                                 </label>
                             </div>
@@ -669,7 +669,7 @@
         }, 3000); // Cambia cada 3 segundos
 
         // --- Lógica del Formulario de Asistencia con la nueva URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxYCz6V45Vh-AlKGjJwnpf4xnp9c-IIUDm3zkzhJibIjTavIWziT6LWBus27dJgZHflfw/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKTyzVRRR7qVlBbOSXUZGHHqES-Hps95Y0sywtLgy3WFVwAJnwDJdHkLHjaToUGnb5bg/exec';
         const form = document.getElementById('rsvpForm');
         const btn = document.getElementById('btn');
 
