@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Invitación</title>
+    
+    <!-- Miniatura y metadatos para WhatsApp / Redes Sociales -->
+    <meta property="-og:title" content="Mi Invitación">
+    <meta property="og:title" content="Invitación Especial">
+    <meta property="og:description" content="¡Te invitamos a compartir este gran día con nosotros! Haz clic para ver los detalles.">
+    <meta property="og:image" content="portada.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Importar fuentes Cinzel, Great Vibes y Montserrat desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            background-color: #F6F4F0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            background-color: #F6F4F0;
+        }
+
+        /* --- Pantalla de inicio (foto tamaño celular en B&N) --- */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('foto.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            filter: grayscale(100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Botón Rectangular y Largo (Entrada) --- */
+        .btn-invitacion {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid #87CEEB;
+            color: #87CEEB;
+            font-family: inherit;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 18px 40px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            min-width: 250px;
+        }
+
+        .btn-invitacion:active {
+            transform: scale(0.97);
+            background-color: rgba(135, 206, 235, 0.3);
+            border-color: #fff;
+            color: #fff;
+        }
+
+        /* --- Contenido Principal --- */
+        #invitation-content {
+            display: none;
+            width: 100%;
+        }
+
+        .invitation-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* --- Contenedor de sección general con padding ajustado a 0 para eliminar espacios --- */
+        .section-ubicacion {
+            background-color: #F6F4F0;
+            padding: 0 0 0 0;
+            text-align: center;
+            width: 100%;
+            line-height: 0;
+        }
+
+        /* --- Estilos adaptados para la Galería con altura mayor (más largas) --- */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 580px;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slider-container img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .slider-container img.active {
+            opacity: 1;
+        }
+
+        /* --- Botón Estándar de Ubicación --- */
+        .btn-ubicacion {
+            display: inline-block;
+            background-color: #A05167;
+            border: 2px solid #A05167;
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 14px 35px;
+            border-radius: 50px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(160, 81, 103, 0.3);
+            transition: all 0.3s ease;
+            line-height: normal;
+        }
+
+        /* --- Botón Específico para "Visitar Mesa" --- */
+        .btn-regalo {
+            display: inline-block;
+            background-color: #A05167;
+            border: 2px solid #A05167;
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 14px 35px;
+            border-radius: 50px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(160, 81, 103, 0.3);
+            transition: all 0.3s ease;
+            line-height: normal;
+        }
+
+        .btn-ubicacion:active, .btn-regalo:active {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+
+        /* --- Botón Flotante de Música (Circular con Nota Musical) --- */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            width: 45px;
+            height: 45px;
+            background: #0a192f;
+            border: 2px solid #87CEEB;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        #music-control:active {
+            transform: scale(0.9);
+        }
+
+        .music-icon {
+            position: relative;
+            width: 14px;
+            height: 14px;
+        }
+
+        .music-icon::before {
+            content: "♫";
+            color: #87CEEB;
+            font-size: 18px;
+            position: absolute;
+            top: -4px;
+            left: -1px;
+        }
+
+        .playing .music-icon {
+            animation: pulse-music 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse-music {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Sección del Contador de Días (Fuente Cinzel) --- */
+        .countdown-section {
+            background-color: #0a192f;
+            padding: 40px 20px 50px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .countdown-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 5px;
+            flex: 1;
+            position: relative;
+        }
+
+        .countdown-box::after {
+            content: '';
+            position: absolute;
+            top: 52%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            display: block;
+            margin-bottom: 12px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .countdown-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #dcdcdc;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* --- Estilos Integrados para el Formulario de Asistencia --- */
+        :root {
+            --color-principal: #1F3A5F;
+            --color-oscuro: #162C47;
+            --color-dorado-texto: #1F3A5F;
+            --color-texto-suave: #5F7288;
+            --color-borde: #C7D3E2;
+            --color-fondo-input: #F5F8FC;
+        }
+
+        .section-asistencia {
+            background-color: #F6F4F0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-container-wrapper {
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+            padding: 20px 10px 40px 10px;
+            box-sizing: border-box;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-container-wrapper label.titulo {
+            display: block;
+            margin-top: 28px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: var(--color-dorado-texto);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .form-container-wrapper input[type="text"],
+        .form-container-wrapper select,
+        .form-container-wrapper textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--color-borde);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 12px;
+            background-color: var(--color-fondo-input);
+            color: var(--color-texto-suave);
+            margin-bottom: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-container-wrapper input[type="text"]::placeholder,
+        .form-container-wrapper textarea::placeholder {
+            color: #A8B8CC;
+        }
+
+        .form-container-wrapper input[type="text"]:focus,
+        .form-container-wrapper select:focus,
+        .form-container-wrapper textarea:focus {
+            border-color: var(--color-principal);
+            box-shadow: 0 0 0 3px rgba(31,58,95,0.12);
+        }
+
+        .form-container-wrapper .opciones-asistencia {
+            display: flex;
+            border: 1px solid var(--color-borde);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--color-fondo-input);
+            gap: 1px;
+        }
+
+        .form-container-wrapper .opcion-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 5px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--color-texto-suave);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .form-container-wrapper .opcion-item input {
+            display: none;
+        }
+
+        .form-container-wrapper .opcion-item:has(input:checked) {
+            background-color: var(--color-principal);
+            color: #FFFFFF;
+        }
+
+        .form-container-wrapper button[type="submit"] {
+            background: linear-gradient(
+                180deg,
+                var(--color-principal) 0%,
+                var(--color-oscuro) 100%
+            );
+            color: #FFFFFF;
+            padding: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            font-size: 13px;
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 10px rgba(31,58,95,0.25);
+            transition: all 0.3s ease;
+        }
+
+        .form-container-wrapper button[type="submit"]:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(31,58,95,0.35);
+        }
+
+        .form-container-wrapper button[type="submit"]:active {
+            transform: translateY(1px);
+        }
+
+        .form-container-wrapper button[type="submit"].cargando {
+            background: var(--color-borde) !important;
+            color: var(--color-texto-suave) !important;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .form-container-wrapper #exito {
+            display: none;
+            text-align: center;
+            padding: 40px 10px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .form-container-wrapper #exito h3 {
+            color: var(--color-principal);
+            font-size: 16px;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Pantalla de bienvenida -->
+        <div id="welcome-screen">
+            <div class="overlay">
+                <button class="btn-invitacion" onclick="abrirInvitacion()">
+                    Ver Invitación
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenido de la invitación -->
+        <div id="invitation-content">
+            <img src="portada.jpg" alt="Portada" class="invitation-img">
+            <img src="frase.jpg" alt="Frase central" class="invitation-img">
+            <img src="fecha.jpg" alt="Información de fecha" class="invitation-img">
+            
+            <!-- Contador de Días -->
+            <div class="countdown-section">
+                <div class="countdown-title">¡Faltan para el gran día!</div>
+                <div class="countdown-grid">
+                    <div class="countdown-box">
+                        <span id="days" class="countdown-number">00</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="hours" class="countdown-number">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="minutes" class="countdown-number">00</span>
+                        <span class="countdown-label">Min</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="seconds" class="countdown-number">00</span>
+                        <span class="countdown-label">Seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Ceremonia -->
+            <div class="section-ubicacion">
+                <img src="ceremonia.jpg" alt="Ceremonia" class="invitation-img">
+                <div>
+                    <a href="https://www.google.com/maps/place/Convento+de+las+Hermanas+Agustinas+Tula+HGO./@20.0525615,-99.352519,1838m/data=!3m2!1e3!4b1!4m6!3m5!1s0x85d22d619acdc403:0x1b8e20e25d9be22c!8m2!3d20.0525615!4d-99.352519!16s%2Fg%2F11h07s_xfl?entry=ttu&g_ep=EgoyMDI2MDcyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-ubicacion">Ver Ubicación</a>
+                </div>
+            </div>
+
+            <!-- Sección de Recepción (Hacienda de Las Moras) -->
+            <div class="section-ubicacion">
+                <img src="recepcion.jpg" alt="Recepción" class="invitation-img">
+                <div>
+                    <a href="https://www.google.com/maps/place/Hacienda+de+Las+Moras/@20.0548427,-99.3672881,919m/data=!3m2!1e3!4b1!4m6!3m5!1s0x85d22d0023d31c51:0x81649a6e246fb8e0!8m2!3d20.0548427!4d-99.3672881!16s%2Fg%2F11vyr7jny3?entry=ttu&g_ep=EgoyMDI2MDcyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-ubicacion">Ver Ubicación</a>
+                </div>
+            </div>
+
+            <!-- Sección de la Galería de Fotos (Después de la recepción) -->
+            <div class="section-ubicacion">
+                <img src="galeria.jpg" alt="Galería" class="invitation-img">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <img src="https://i.imgur.com/8jR5Zmz.jpeg" class="active" alt="Foto 1">
+                        <img src="https://i.imgur.com/BgAYqeX.jpeg" alt="Foto 2">
+                        <img src="https://i.imgur.com/xUNjbSC.jpeg" alt="Foto 3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Vestimenta -->
+            <div class="section-ubicacion">
+                <img src="vestimenta.jpg" alt="Vestimenta" class="invitation-img">
+            </div>
+
+            <!-- Sección de Mesa de Regalos con el botón abajo de la foto -->
+            <div class="section-ubicacion">
+                <img src="regalo.jpg" alt="Mesa de Regalos" class="invitation-img">
+                <div>
+                    <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60018413" target="_blank" class="btn-regalo">Visitar Mesa</a>
+                </div>
+            </div>
+
+            <!-- Sección de Asistencia con la foto y el formulario incrustado -->
+            <div class="section-asistencia">
+                <img src="asistencia.jpg" alt="Confirmación de Asistencia" class="invitation-img">
+                <div class="form-container-wrapper">
+                    <div id="formContent">
+                        <form id="rsvpForm">
+                            <label class="titulo">Nombre Completo</label>
+                            <input type="text" name="nombre" placeholder="Escribe tu nombre" required>
+
+                            <label class="titulo">¿Asistirás?</label>
+                            <div class="opciones-asistencia">
+                                <label class="opcion-item">
+                                    <input type="radio" name="asistencia" value="SÍ, ASISTIRÉ" checked>
+                                    SÍ, ASISTIRÉ
+                                </label>
+                                <label class="opcion-item">
+                                    <input type="radio" name="asistencia" value="NO PODRÉ ASISTIR">
+                                    NO PODRÉ ASISTIR
+                                </label>
+                            </div>
+
+                            <label class="titulo">Mensaje o felicitación para la quinceañera</label>
+                            <textarea name="mensaje" rows="3" placeholder="Escribe tu mensaje (opcional)"></textarea>
+
+                            <button type="submit" id="btn">Enviar Respuesta</button>
+                        </form>
+                    </div>
+
+                    <div id="exito">
+                        <h3>
+                            ¡Muchas gracias!<br>
+                            Tu respuesta ha sido enviada.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de Música Redondo y Flotante -->
+    <div id="music-control" onclick="toggleMusic()">
+        <div class="music-icon"></div>
+    </div>
+
+    <!-- Elemento de audio -->
+    <audio id="background-music" loop preload="auto">
+        <source src="cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+
+    <script>
+        const music = document.getElementById('background-music');
+        const musicControl = document.getElementById('music-control');
+
+        function abrirInvitacion() {
+            music.play().then(() => {
+                musicControl.style.display = 'flex';
+                musicControl.classList.add('playing');
+            }).catch(error => {
+                console.log("Reproducción bloqueada o error:", error);
+                musicControl.style.display = 'flex';
+                musicControl.classList.remove('playing');
+            });
+
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                document.getElementById('invitation-content').style.display = 'block';
+            }, 800);
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicControl.classList.add('playing');
+            } else {
+                music.pause();
+                musicControl.classList.remove('playing');
+            }
+        }
+
+        // --- Lógica del Contador para el 19 de Septiembre a las 3:00 PM (15:00) ---
+        function updateCountdown() {
+            const now = new Date();
+            let year = now.getFullYear();
+            let targetDate = new Date(year, 8, 19, 15, 0, 0);
+
+            if (now > targetDate) {
+                targetDate = new Date(year + 1, 8, 19, 15, 0, 0);
+            }
+
+            const diff = targetDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- Lógica de la Galería de Fotos (Slider Automático) ---
+        const images = document.querySelectorAll('.slider-container img');
+        let current = 0;
+
+        setInterval(() => {
+            images[current].classList.remove('active');
+            current = (current + 1) % images.length;
+            images[current].classList.add('active');
+        }, 3000); // Cambia cada 3 segundos
+
+        // --- Lógica del Formulario de Asistencia con la nueva URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxYCz6V45Vh-AlKGjJwnpf4xnp9c-IIUDm3zkzhJibIjTavIWziT6LWBus27dJgZHflfw/exec';
+        const form = document.getElementById('rsvpForm');
+        const btn = document.getElementById('btn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+            btn.classList.add('cargando');
+
+            const formData = new FormData(form);
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('exito').style.display = 'block';
+            })
+            .catch(error => {
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('exito').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
